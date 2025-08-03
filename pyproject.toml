@@ -1,0 +1,12 @@
+[project]
+name = "cad-parse"
+version = "0.1.0"
+description = "CAD 文件解析服务"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ezdxf>=1.4.2",
+    "fastapi>=0.116.1",
+    "python-multipart>=0.0.20",
+    "uvicorn>=0.35.0",
+]
