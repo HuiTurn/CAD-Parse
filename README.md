@@ -43,7 +43,7 @@ cad_conver/
 ### 1. 克隆项目
 ```bash
 git clone https://github.com/HuiTurn/CAD-Parse.git
-cd cad_conver
+cd cad_parse
 ```
 
 ## 配置说明
