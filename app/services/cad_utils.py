@@ -121,3 +121,21 @@ def extract_dxf_info(dxf_path: str) -> dict:
         info["entities"].append(entity_data)
 
     return info
+
+
+def extract_filename_from_cd(cd: str | None) -> str | None:
+    """
+    从 Content-Disposition 里抠出 filename
+    支持两种常见写法：
+      filename="abc.dwg"
+      filename*=UTF-8''abc.dwg
+    """
+    if not cd:
+        return None
+    fname = re.findall(r'filename\*?=([^;]+)', cd, flags=re.IGNORECASE)
+    if not fname:
+        return None
+    fname = fname[-1].strip()
+    if fname.startswith("UTF-8''"):
+        fname = fname[7:]
+    return fname.strip('"').strip("'")
