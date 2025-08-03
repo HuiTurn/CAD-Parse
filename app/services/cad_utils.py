@@ -10,15 +10,20 @@ def convert_dwg_to_dxf(input_path: str, output_path: str) -> bool:
     # 判断操作系统类型，选择对应的 ODAFileConverter 路径
     if platform.system() == "Darwin":  # macOS
         converter_path = "/Applications/ODAFileConverter.app/Contents/MacOS/ODAFileConverter"
+        cmd = [
+            converter_path,
+            str(Path(input_path).parent),
+            output_dir,
+            "ACAD2007", "DXF", "0", "0", "*.dwg"
+        ]
     else:  # 默认使用 Linux 路径
-        converter_path = "xvfb-run /usr/bin/ODAFileConverter"
-
-    cmd = [
-        converter_path,
-        str(Path(input_path).parent),
-        output_dir,
-        "ACAD2007", "DXF", "0", "0", "*.dwg"
-    ]
+        cmd = [
+            "xvfb-run", "/usr/bin/ODAFileConverter",
+            str(Path(input_path).parent),
+            output_dir,
+            "ACAD2007", "DXF", "0", "0", "*.dwg"
+        ]
+    
     try:
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
         return result.returncode == 0
